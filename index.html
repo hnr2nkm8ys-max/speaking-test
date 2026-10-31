@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>英语口语测试 · AI 创业公司 HR 岗</title>
+<style>
+  :root{
+    --ink:#0f172a; --ink2:#334155; --muted:#64748b; --line:#e5e9f2;
+    --bg:#f5f6fb; --card:#fff; --accent:#4f46e5; --accent2:#eef2ff;
+    --rec:#e11d48; --ok:#059669;
+    --radius:18px; --shadow:0 1px 2px rgba(15,23,42,.06),0 14px 34px -14px rgba(15,23,42,.18);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:
+      radial-gradient(1100px 420px at 12% -10%, #e7eaff 0%, rgba(231,234,255,0) 62%),
+      radial-gradient(900px 380px at 94% -2%, #e4f7f3 0%, rgba(228,247,243,0) 58%),
+      var(--bg);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:22px 18px 40px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(79,70,229,.14)}
+  .steps{display:flex;gap:5px}
+  .steps i{display:block;width:20px;height:5px;border-radius:99px;background:#dfe4f1;transition:.3s}
+  .steps i.done{background:var(--accent)}
+  .steps i.now{background:var(--accent);width:32px;box-shadow:0 0 0 3px rgba(79,70,229,.13)}
+  .card{background:var(--card);border:1px solid rgba(15,23,42,.055);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+  h1{font-size:25px;line-height:1.35;margin:0 0 10px;letter-spacing:-.3px}
+  h2{font-size:20px;margin:0;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:14px;line-height:1.75;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+  .pill{font-size:12.5px;padding:6px 11px;border-radius:99px;background:#f1f4fa;color:var(--ink2)}
+  .pill b{font-weight:600;color:var(--ink)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  label.fld{display:block}
+  label.fld span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  input[type=text],input[type=email]{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:11px;font-size:15px;font-family:inherit;color:var(--ink);background:#fbfcfe;outline:none;transition:.18s}
+  input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px rgba(79,70,229,.1)}
+  .btn{appearance:none;border:1px solid transparent;border-radius:12px;font-family:inherit;font-size:15px;font-weight:600;padding:13px 22px;cursor:pointer;transition:.16s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 20px -8px rgba(79,70,229,.6)}
+  .btn-primary:hover{background:#4338ca;transform:translateY(-1px)}
+  .btn-primary:disabled{background:#e3e7f2;color:#8a93a8;box-shadow:none;cursor:not-allowed;transform:none}
+  .btn-ghost{background:#fff;border-color:var(--line);color:var(--ink2)}
+  .btn-ghost:hover{border-color:#c9d0e3;background:#fafbff}
+  .btn-rec{background:var(--rec);color:#fff;box-shadow:0 10px 24px -10px rgba(225,29,72,.65)}
+  .btn-rec:hover{background:#be123c}
+  .btn-sm{padding:9px 15px;font-size:13.5px;border-radius:10px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .spacer{flex:1}
+  .tips{margin:20px 0 0;padding:16px 18px;background:#f8faff;border:1px dashed #dbe1f5;border-radius:14px}
+  .tips ul{margin:0;padding-left:18px;color:var(--ink2);font-size:13.5px;line-height:1.9}
+  .tips li::marker{color:var(--accent)}
+  .micbox{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .meter{display:flex;align-items:flex-end;gap:3px;height:34px;flex:1;min-width:150px}
+  .meter i{flex:1;height:100%;background:#cbd5e1;border-radius:3px;transform:scaleY(.14);transform-origin:bottom;transition:transform .07s linear,background .2s;opacity:.6}
+  .meter.on i{background:linear-gradient(180deg,#5eead4,#10b981);opacity:1}
+  .status{font-size:13px;color:var(--muted)}
+  .status.ok{color:var(--ok)}
+  .status.bad{color:var(--rec)}
+  .taskhead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .part{font-size:11.5px;font-weight:700;letter-spacing:.09em;color:var(--accent);background:var(--accent2);padding:5px 9px;border-radius:7px}
+  .count{font-size:12.5px;color:var(--muted);margin-left:auto}
+  .prompt-zh{font-size:15px;line-height:1.85;color:var(--ink2);margin:10px 0 0}
+  .prompt-en{margin:12px 0 0;padding:12px 15px;border-left:3px solid #c7d2fe;background:#f8f9ff;border-radius:0 10px 10px 0;font-size:13.5px;line-height:1.75;color:#475569;font-style:italic}
+  .passage{margin:16px 0 0;padding:18px 20px;background:#fbfcff;border:1px solid #e8ecf7;border-radius:13px;font-size:15px;line-height:1.95}
+  .passage p{margin:0}
+  .chart{margin:16px 0 0;border:1px solid #eaeef8;border-radius:14px;padding:8px;background:#fff}
+  .chart svg{display:block;width:100%;height:auto}
+  .hint{margin:14px 0 0;font-size:12.5px;color:var(--muted);line-height:1.8}
+  .stage{margin-top:20px;padding:22px;border-radius:16px;background:linear-gradient(180deg,#fafbff,#f4f6fd);border:1px solid #e9edf8;text-align:center}
+  .stage[data-state=recording]{background:linear-gradient(180deg,#fff5f7,#fff1f4);border-color:#fbd5de}
+  .ringwrap{position:relative;width:132px;height:132px;margin:0 auto 12px}
+  .ring{width:132px;height:132px;transform:rotate(-90deg)}
+  .ring .bg{fill:none;stroke:#e6eaf5;stroke-width:8}
+  .ring .fg{fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0}
+  .stage[data-state=recording] .ring .fg{stroke:var(--rec)}
+  .ringtxt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+  .ringtxt b{font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+  .ringtxt small{font-size:11px;color:var(--muted)}
+  .stagetitle{font-size:14px;font-weight:600;color:var(--ink2);margin:0 0 4px}
+  .stagesub{font-size:12.5px;color:var(--muted);margin:0 0 14px;line-height:1.7}
+  .bigrec{width:96px;height:96px;border-radius:50%;border:none;background:var(--rec);color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 12px 30px -10px rgba(225,29,72,.7);transition:.16s}
+  .bigrec:hover{transform:scale(1.04)}
+  .lvl{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:38px;margin:12px auto 0;max-width:400px}
+  .lvl i{flex:1;max-width:4px;height:100%;background:linear-gradient(180deg,#fb7185,#e11d48);border-radius:2px;transform:scaleY(.06);transform-origin:bottom;transition:transform .07s}
+  .playback{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  audio{width:100%;max-width:430px;height:40px}
+  .saved{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ok);background:#ecfdf5;padding:5px 11px;border-radius:99px}
+  .files{display:flex;flex-direction:column;gap:10px;margin:18px 0 0}
+  .file{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fcfdff;flex-wrap:wrap}
+  .file .name{font-size:13.5px;font-weight:600;flex:1;min-width:150px}
+  .file .dur{font-size:12px;color:var(--muted);font-weight:400;margin-top:2px;font-variant-numeric:tabular-nums}
+  .file audio{max-width:250px;height:34px;flex:2}
+  /* ---------- 环境提示 ---------- */
+  .envbar{margin:16px 0 0;padding:13px 15px;border-radius:12px;font-size:13px;line-height:1.75;
+    background:#fffbeb;border:1px solid #fde68a;color:#78350f}
+  .envbar.bad{background:#fef2f2;border-color:#fecaca;color:#7f1d1d}
+  .envbar b{font-weight:700}
+  .envbar .how{margin-top:6px;color:#92400e;font-size:12.5px}
+  .envbar.bad .how{color:#991b1b}
+  /* ---------- 邮件兜底 ---------- */
+  .fallback{margin-top:14px;padding:15px 17px;border:1px dashed #cfd8ea;border-radius:12px;background:#fbfcff;text-align:left}
+  .fallback[hidden]{display:none}
+  .fb-t{font-size:13px;font-weight:600;color:var(--ink-2);margin:0 0 9px}
+  .fb-row{display:flex;gap:8px;align-items:baseline;font-size:12.5px;color:var(--muted);padding:4px 0;flex-wrap:wrap;line-height:1.6}
+  .fb-row b{color:var(--ink);font-weight:600;word-break:break-all}
+  .fb-acts{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:#0f172a;color:#fff;font-size:13.5px;padding:11px 18px;border-radius:11px;opacity:0;pointer-events:none;transition:.28s;z-index:99;max-width:86vw;line-height:1.6}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .foot{text-align:center;font-size:11.5px;color:#94a3b8;margin-top:20px;line-height:1.7}
+  .divider{height:1px;background:var(--line);margin:22px 0}
+  .kv{display:flex;justify-content:space-between;gap:16px;font-size:13px;color:var(--muted);padding:7px 0}
+  .kv b{color:var(--ink);font-weight:600;text-align:right}
+  @media (max-width:640px){
+    .wrap{padding:16px 14px 34px}
+    .card{padding:20px 17px;border-radius:16px}
+    h1{font-size:22px}
+    .grid2{grid-template-columns:1fr}
+    .steps i{width:13px}
+    .steps i.now{width:21px}
+    .stage{padding:18px 14px}
+    .btn{width:100%}
+    .row .btn{width:auto}
+    .row > .btn-primary{width:100%}
+    .micbox .btn{width:auto}
+    .micbox .status{width:100%}
+    .file audio{max-width:100%;width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="dot"></span>英语口语测试 · AI 招聘</div>
+    <div class="steps" id="steps"></div>
+  </header>
+  <main id="screen"></main>
+  <div class="foot">本测试仅用于招聘评估，录音仅提交给你指定的招聘负责人。</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================================
+   题库：AI 创业公司岗位通用版
+   prep = 准备秒数，limit = 录音上限秒数，改这里即可换题
+   ========================================================== */
+const TASKS = [
+  {
+    id:'t1', part:'Part 1', tag:'自我介绍', type:'talk',
+    title:'自我介绍与动机',
+    zh:'请用英文介绍：① 你目前的招聘背景（主要招哪些岗位、一年大概多少量）；② 一个你从 0 到 1 招到关键人才的例子（怎么找到的、怎么说服的）；③ 为什么想做 AI 工程师招聘。',
+    en:"Introduce yourself: your recruiting background (which roles, roughly what volume), one example of hiring a key person from scratch (how you found and closed them), and why you want to recruit AI engineers.",
+    prep:10, limit:75,
+    tip:'建议 60–75 秒。这题最忌空谈"热爱 AI"，用具体岗位、数字和一个 close 案例说话。'
+  },
+  {
+    id:'t2', part:'Part 2', tag:'朗读', type:'read',
+    title:'朗读候选人私信',
+    zh:'这是你要发给一位被动候选人的英文 outreach。请先默读，再大声、自然地朗读。注意数字、公司名和技术词的重音。',
+    en:'This is an outreach message to a passive candidate. Read it silently first, then read it aloud at a natural pace.',
+    passage:"Hi Priya, I'm reaching out about a backend role on our inference team. We're a Series A company building an LLM gateway that serves about two billion tokens a day. The team owns latency and reliability, so you'd work on batching, caching, and GPU scheduling rather than model training. We're looking for someone comfortable with Python and distributed systems; experience with vLLM or Triton is a plus, not a requirement. The process is three conversations and a paid take-home. The base range is one hundred forty to one hundred eighty thousand, plus equity. Would Thursday work for a short call?",
+    prep:30, limit:60,
+    tip:'先默读 30 秒。读错不要回退，继续往下；考官听的是整体可理解度和专业词的读音。'
+  },
+  {
+    id:'t3', part:'Part 3', tag:'数据描述', type:'chart',
+    title:'招聘漏斗分析',
+    zh:'这是上季度 AI 工程师岗位的招聘漏斗。请描述：① 整体转化情况；② 哪一环节最值得优先优化、依据是什么；③ 你会先做哪一件事。',
+    en:"This is last quarter's recruiting funnel for AI engineer roles. Describe the overall conversion, tell me which stage you would fix first and why, and what you would do first.",
+    prep:30, limit:90,
+    tip:'按"整体—卡点—动作"三段讲。注意每一段相对上一段的转化率，不要只念人数。'
+  },
+  {
+    id:'t4', part:'Part 4', tag:'抢候选人', type:'situation',
+    title:'情景应对 A · 抢候选人',
+    zh:'候选人是一位资深后端工程师，刚拿到另一家 AI 公司的 offer，base 高 20%，要求 48 小时内答复。你很想招到他。请用英文：① 先了解他真正在意什么；② 说明你们的差异化价值；③ 推动一个明确的下一步。',
+    en:"A senior backend engineer just got a competing AI offer with a 20% higher base and a 48-hour deadline. You want to close him. Find out what really matters to him, make your case, and drive a concrete next step.",
+    prep:20, limit:75,
+    tip:'不要一上来谈钱。先问动机，再给非现金价值（团队、算力、成长、期权），最后落到时间点。'
+  },
+  {
+    id:'t5', part:'Part 5', tag:'推动用人经理', type:'situation',
+    title:'情景应对 B · 推动用人经理',
+    zh:'用人经理看完面试反馈只写了一句 "not technical enough"，要拒掉候选人，但没有给任何具体证据。你是这个岗位的招聘负责人，认为候选人在系统设计轮表现不错。请用英文：① 追问具体证据；② 表达你的判断；③ 提出一个不伤关系的下一步。',
+    en:'The hiring manager wants to reject a candidate with one line: "not technical enough", with no evidence. You think the candidate did well in the system design round. Ask for specifics, share your view, and propose a next step that keeps the relationship.',
+    prep:20, limit:75,
+    tip:'考"用证据对话"：不要直接对抗，用具体轮次和评分锚定，同时给对方留台阶。'
+  },
+  {
+    id:'t6', part:'Part 6', tag:'观点陈述', type:'opinion',
+    title:'行业观点陈述',
+    zh:'AI 创业公司招聘资源有限：应该优先招"能立刻上手"的资深工程师，还是招"学习速度快"的高潜力候选人？请给出观点、两条理由、一个具体例子，并回应一种反对意见。',
+    en:"With limited resources, should an AI startup hire senior engineers who can ship immediately, or high-potential candidates who learn fast? Give your view, two reasons, a concrete example, and address one counter-argument.",
+    prep:60, limit:120,
+    tip:'建议结构：观点（10 秒）→ 理由 1 + 例子（40 秒）→ 理由 2（30 秒）→ 让步与反驳（30 秒）。'
+  }
+];
+
+/* ★ 提交配置
+   email    : 招聘邮箱，填了之后完成页会出现「发送到招聘邮箱」按钮
+   endpoint : 可选。若部署了接收服务并填上地址，候选人可一键上传，实现全自动回传 */
+const SUBMIT = { email:'mira.tian@roberthalf.cn', endpoint:'' };
+
+/* ============================ 基础工具 ============================ */
+const $ = (s,r=document)=>r.querySelector(s);
+const screenEl = $('#screen');
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+const fmt = s => pad(Math.floor(s/60)) + ':' + pad(Math.floor(s%60));
+let toastTimer;
+function toast(msg, ms=2800){
+  const t = $('#toast'); if(!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), ms);
+}
+const RING_C = 2 * Math.PI * 54;
+
+/* ============================ 状态 ============================ */
+const state = { name:'', email:'', step:-1, clips:{}, startedAt:null };
+let stream=null, mr=null, chunks=[], recStart=0, tickId=0, rafId=0, maxLevel=0;
+let skipPrep=null, countdownId=0;
+let checkStream=null, checkRaf=0;
+
+/* ============================ 录音能力 ============================ */
+function pickMime(){
+  if(!window.MediaRecorder) return '';
+  const list = ['audio/webm;codecs=opus','audio/webm','audio/mp4;codecs=mp4','audio/mp4','audio/ogg;codecs=opus'];
+  for(const t of list){ try{ if(MediaRecorder.isTypeSupported(t)) return t; }catch(e){} }
+  return '';
+}
+function extFor(mime){
+  if(!mime) return 'webm';
+  if(mime.indexOf('mp4') > -1) return 'm4a';
+  if(mime.indexOf('ogg') > -1) return 'ogg';
+  return 'webm';
+}
+async function ensureStream(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('NO_API');
+  if(stream && stream.getAudioTracks().some(t=>t.readyState==='live')) return stream;
+  stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+  return stream;
+}
+function beep(freq, dur){
+  freq = freq || 800; dur = dur || 0.12;
+  try{
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if(!Ctx) return;
+    const ac = new Ctx();
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type='sine'; o.frequency.value=freq;
+    g.gain.setValueAtTime(0.06, ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+dur);
+    o.connect(g); g.connect(ac.destination);
+    o.start(); o.stop(ac.currentTime+dur);
+    setTimeout(()=>{ try{ac.close();}catch(e){} }, (dur+0.15)*1000);
+  }catch(e){}
+}
+
+/* ============================ 进度条 ============================ */
+function renderSteps(){
+  const el = $('#steps');
+  el.innerHTML = TASKS.map((t,i)=>{
+    const done = !!state.clips[t.id];
+    const now = i === state.step;
+    return '<i class="' + (done?'done':'') + ' ' + (now?'now':'') + '"></i>';
+  }).join('');
+}
+
+/* ============================ 首页 ============================ */
+function renderIntro(){
+  state.step = -1; renderSteps();
+  screenEl.innerHTML = [
+    '<section class="card">',
+    '  <h1>英语口语测试</h1>',
+    '  <p class="sub">这是一份面向 <b>AI 创业公司 HR 岗（约 50% 工作为 AI 工程师招聘）</b>的录音式口语测试，共 6 个任务，全程约 <b>12 分钟</b>。请找一个安静的地方，戴上耳机效果更好。</p>',
+    envBannerHTML(),
+    '  <div class="meta">',
+    '    <span class="pill">约 12 分钟</span>',
+    '    <span class="pill">6 段录音</span>',
+    '    <span class="pill">全英文作答</span>',
+    '    <span class="pill">完成后一键发回</span>',
+    '  </div>',
+    '  <div class="grid2">',
+    '    <label class="fld"><span>姓名 *</span><input type="text" id="f-name" placeholder="张三" autocomplete="name"></label>',
+    '    <label class="fld"><span>邮箱 / 手机（选填）</span><input type="text" id="f-email" placeholder="zhangsan@example.com"></label>',
+    '  </div>',
+    '  <div class="tips"><ul>',
+    '    <li>每题都有<b>准备时间</b>，倒计时结束后自动开始录音。</li>',
+    '    <li>可以<b>回放、重录</b>，每题只保留最后一次录音。</li>',
+    '    <li>说得慢没关系，<b>不要背稿、不要照着念</b>，正常表达即可。</li>',
+    '    <li>录音只保存在本机浏览器，<b>完成前请不要关闭或刷新页面</b>；测试过程中不会上传任何内容。</li>',
+    '    <li>全部答完后点<b>「发送到招聘邮箱」</b>，录音会自动打包发至 <b>' + esc(SUBMIT.email) + '</b>。</li>',
+    '    <li>建议用 <b>电脑 Chrome / Edge</b> 或 <b>手机 Safari</b> 打开；微信内打开可能无法调用麦克风。</li>',
+    '  </ul></div>',
+    '  <div class="divider"></div>',
+    '  <div class="micbox">',
+    '    <button class="btn btn-ghost btn-sm" id="mic-check">检测麦克风</button>',
+    '    <div class="meter" id="mic-meter">' + '<i></i>'.repeat(26) + '</div>',
+    '    <div class="status" id="mic-status">尚未检测</div>',
+    '  </div>',
+    '  <div class="divider"></div>',
+    '  <div class="row">',
+    '    <button class="btn btn-primary" id="start" disabled>开始测试 →</button>',
+    '    <span class="status" id="start-hint">请先填写姓名</span>',
+    '  </div>',
+    '</section>'
+  ].join('');
+
+  const nameEl = $('#f-name'), emailEl = $('#f-email');
+  const startBtn = $('#start'), hint = $('#start-hint');
+  const sync = ()=>{
+    state.name = nameEl.value.trim();
+    state.email = emailEl.value.trim();
+    startBtn.disabled = state.name.length < 1;
+    hint.textContent = startBtn.disabled ? '请先填写姓名' : '点击开始，共 6 个任务';
+  };
+  nameEl.addEventListener('input', sync);
+  emailEl.addEventListener('input', sync);
+  sync();
+
+  $('#mic-check').addEventListener('click', toggleMicCheck);
+  startBtn.addEventListener('click', ()=>{
+    if(!state.name) return;
+    stopMicCheck();
+    state.startedAt = new Date();
+    state.step = 0;
+    renderTask();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+}
+
+/* 运行环境自检：判断能否调用麦克风，并给出可执行建议 */
+function envInfo(){
+  const ua = navigator.userAgent;
+  return {
+    proto: location.protocol,
+    isFile: location.protocol === 'file:',
+    secure: !!window.isSecureContext,
+    hasApi: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+    isSafari: /^((?!chrome|chromium|edg|android).)*safari/i.test(ua),
+    isWeChat: /MicroMessenger/i.test(ua),
+    isIOS: /iPad|iPhone|iPod/.test(ua)
+  };
+}
+function envBannerHTML(){
+  const e = envInfo();
+  if(e.isWeChat){
+    return '<div class="envbar bad"><b>微信内置浏览器无法调用麦克风</b>'
+      + '<div class="how">请点右上角「…」，选择「在浏览器中打开」，再开始测试。</div></div>';
+  }
+  if(!e.hasApi){
+    return '<div class="envbar bad"><b>当前浏览器不支持录音</b>'
+      + '<div class="how">请用电脑上的 Chrome / Edge 打开本文件（手机请用 Safari）。</div></div>';
+  }
+  if(e.isFile && e.isSafari){
+    return '<div class="envbar bad"><b>Safari 不允许「直接打开的本地文件」使用麦克风</b>'
+      + '<div class="how">请右键这个文件 →「打开方式」→ 选择 <b>Chrome 或 Edge</b>；若仍无法使用，请联系招聘方获取在线链接。</div></div>';
+  }
+  if(e.isFile){
+    return '<div class="envbar"><b>当前是本地文件方式打开</b>'
+      + '<div class="how">若点「检测麦克风」没有反应，请改用 <b>Chrome 或 Edge</b> 打开；若仍无法使用，请联系招聘方获取在线链接。</div></div>';
+  }
+  if(!e.secure){
+    return '<div class="envbar bad"><b>当前页面不是安全连接</b>'
+      + '<div class="how">浏览器只在 https 或 localhost 下允许使用麦克风，请联系招聘方获取以 https 开头的链接。</div></div>';
+  }
+  return '';
+}
+function micErrorHint(err){
+  const e = envInfo();
+  const name = err && err.name ? err.name : '';
+  if(!e.hasApi){
+    return e.isFile && e.isSafari
+      ? 'Safari 不支持本地文件调用麦克风，请改用 Chrome / Edge 打开'
+      : '当前浏览器不支持录音，请改用 Chrome / Edge / Safari';
+  }
+  if(name === 'NotAllowedError' || name === 'SecurityError'){
+    return '权限被拒绝：点地址栏左侧的锁形/摄像头图标，把麦克风改为「允许」，然后刷新页面';
+  }
+  if(name === 'NotFoundError' || name === 'DevicesNotFoundError'){
+    return '没有检测到麦克风设备，请确认已插好耳机或麦克风';
+  }
+  if(name === 'NotReadableError' || name === 'TrackStartError'){
+    return '麦克风被其他程序占用（如会议软件），请关闭后重试';
+  }
+  return '无法访问麦克风，请检查浏览器权限';
+}
+
+async function toggleMicCheck(){
+  if(checkStream){ stopMicCheck(); return; }
+  const btn = $('#mic-check'), st = $('#mic-status'), meter = $('#mic-meter');
+  const e = envInfo();
+  if(!e.hasApi){
+    st.textContent = micErrorHint(new Error('NO_API'));
+    st.className = 'status bad';
+    return;
+  }
+  try{
+    btn.disabled = true;
+    st.textContent = '正在请求麦克风权限…';
+    st.className = 'status';
+    checkStream = await Promise.race([
+      navigator.mediaDevices.getUserMedia({audio:true}),
+      new Promise((_, rej)=>setTimeout(()=>rej(new Error('TIMEOUT')), 12000))
+    ]);
+    btn.textContent = '⏹ 停止检测';
+    st.textContent = '正在检测…请说几句话';
+    st.className = 'status';
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ac = new Ctx();
+    const src = ac.createMediaStreamSource(checkStream);
+    const an = ac.createAnalyser(); an.fftSize = 256;
+    src.connect(an);
+    const buf = new Uint8Array(an.frequencyBinCount);
+    meter.classList.add('on');
+    const bars = [].slice.call(meter.children);
+    const loop = ()=>{
+      an.getByteFrequencyData(buf);
+      bars.forEach((b,i)=>{
+        const v = buf[Math.floor(i*2)+2] / 255;
+        b.style.transform = 'scaleY(' + Math.max(0.06, Math.min(1, v*1.7)).toFixed(3) + ')';
+      });
+      if(buf.some(v=>v>28)){ st.textContent = '麦克风正常 ✓'; st.className = 'status ok'; }
+      checkRaf = requestAnimationFrame(loop);
+    };
+    loop();
+    checkStream._ac = ac;
+  }catch(err){
+    const nm = err && err.message === 'TIMEOUT' ? 'Timeout' : (err && err.name) || '';
+    st.textContent = nm === 'Timeout'
+      ? '没有收到授权结果：请检查地址栏左侧的麦克风图标，或刷新页面重试'
+      : micErrorHint(err);
+    st.className = 'status bad';
+    checkStream = null;
+  }finally{
+    btn.disabled = false;
+  }
+}
+function stopMicCheck(){
+  if(checkStream){
+    try{ checkStream.getTracks().forEach(t=>t.stop()); }catch(e){}
+    try{ if(checkStream._ac) checkStream._ac.close(); }catch(e){}
+    checkStream = null;
+  }
+  cancelAnimationFrame(checkRaf);
+  const btn = $('#mic-check');
+  if(btn) btn.textContent = '检测麦克风';
+  const meter = $('#mic-meter');
+  if(meter){ meter.classList.remove('on'); [].slice.call(meter.children).forEach(b=>{ b.style.transform='scaleY(.14)'; }); }
+}
+
+/* ============================ 图表 ============================ */
+function chartSVG(){
+  const rows = [
+    ['Sourced', 320, '—'],
+    ['Screened', 96, '30%'],
+    ['Onsite', 38, '40%'],
+    ['Offer', 12, '32%'],
+    ['Accepted', 9, '75%']
+  ];
+  const maxV = 320, x0 = 104, maxW = 208, top = 68, step = 38, barH = 22;
+  let out = '';
+  rows.forEach(function(r,i){
+    const y = top + i*step;
+    const w = Math.max(6, Math.round(r[1]/maxV*maxW));
+    const bad = (i === 3);
+    out += '<text x="14" y="' + (y+15) + '" font-size="11.5" fill="#475569">' + r[0] + '</text>';
+    out += '<rect x="' + x0 + '" y="' + y + '" width="' + maxW + '" height="' + barH + '" rx="5" fill="#f1f4fb"/>';
+    out += '<rect x="' + x0 + '" y="' + y + '" width="' + w + '" height="' + barH + '" rx="5" fill="' + (bad?'#f59e0b':'#4f46e5') + '"/>';
+    out += '<text x="' + (x0+maxW+34) + '" y="' + (y+15) + '" text-anchor="end" font-size="11.5" font-weight="700" fill="#0f172a">' + r[1] + '</text>';
+    out += '<text x="' + (x0+maxW+46) + '" y="' + (y+15) + '" font-size="10.5" fill="#94a3b8">' + r[2] + '</text>';
+  });
+  return '<svg viewBox="0 0 470 254" role="img" aria-label="AI engineer recruiting funnel">'
+    + '<text x="20" y="24" font-size="12.5" font-weight="600" fill="#334155">AI engineer recruiting funnel, last quarter</text>'
+    + '<text x="20" y="40" font-size="10.5" fill="#94a3b8">Source: ATS · candidates per stage · right column = conversion from previous stage</text>'
+    + '<text x="14" y="58" font-size="9.5" fill="#94a3b8">STAGE</text>'
+    + '<text x="' + (x0+maxW+34) + '" y="58" text-anchor="end" font-size="9.5" fill="#94a3b8">CANDIDATES</text>'
+    + '<text x="' + (x0+maxW+46) + '" y="58" font-size="9.5" fill="#94a3b8">CONV.</text>'
+    + out + '</svg>';
+}
+
+/* ============================ 任务页 ============================ */
+function renderTask(){
+  renderSteps();
+  const t = TASKS[state.step];
+  const idx = state.step;
+  const clip = state.clips[t.id];
+  const extra = t.passage
+    ? '<div class="passage"><p>' + esc(t.passage) + '</p></div>'
+    : (t.type === 'chart' ? '<div class="chart">' + chartSVG() + '</div>' : '');
+
+  screenEl.innerHTML = [
+    '<section class="card">',
+    '  <div class="taskhead"><span class="part">' + t.part + '</span><span class="count">' + (idx+1) + ' / ' + TASKS.length + '</span></div>',
+    '  <h2>' + t.title + '</h2>',
+    '  <p class="prompt-zh">' + esc(t.zh) + '</p>',
+    '  <div class="prompt-en">' + esc(t.en) + '</div>',
+    extra,
+    '  <p class="hint">准备 ' + t.prep + ' 秒 · 录音最长 ' + t.limit + ' 秒<br>' + esc(t.tip || '') + '</p>',
+    '  <div class="stage" id="stage" data-state="' + (clip?'done':'idle') + '">' + (clip ? playbackHTML(clip) : idleHTML()) + '</div>',
+    '  <div class="row" style="margin-top:18px">',
+    idx > 0 ? '    <button class="btn btn-ghost btn-sm" id="back">← 上一题</button>' : '',
+    '    <div class="spacer"></div>',
+    clip ? '    <button class="btn btn-primary" id="next">' + (idx === TASKS.length-1 ? '完成测试' : '下一题 →') + '</button>' : '',
+    '  </div>',
+    '</section>'
+  ].join('');
+
+  if(clip){
+    $('#next').addEventListener('click', ()=>{
+      if(idx === TASKS.length-1){ renderDone(); }
+      else { state.step++; renderTask(); window.scrollTo({top:0,behavior:'smooth'}); }
+    });
+    const re = $('#rerec');
+    if(re) re.addEventListener('click', ()=>{ delete state.clips[t.id]; renderTask(); });
+    const dl = $('#dl');
+    if(dl) dl.addEventListener('click', ()=>{ downloadClip(clip, fileName(t, clip)); });
+  } else {
+    const rec = $('#recbtn');
+    if(rec) rec.addEventListener('click', ()=>beginFlow(t));
+  }
+  if(idx > 0){
+    $('#back').addEventListener('click', ()=>{ state.step--; renderTask(); window.scrollTo({top:0,behavior:'smooth'}); });
+  }
+}
+
+function idleHTML(){
+  return [
+    '<p class="stagetitle">准备开始</p>',
+    '<p class="stagesub">点击下方按钮，倒计时结束后自动开始录音</p>',
+    '<button class="bigrec" id="recbtn"><span>开始</span></button>'
+  ].join('');
+}
+
+function playbackHTML(clip){
+  return [
+    '<span class="saved">✓ 已录音 · ' + fmt(clip.seconds) + '</span>',
+    '<div class="playback">',
+    '  <audio controls src="' + clip.url + '"></audio>',
+    '  <div class="row" style="justify-content:center">',
+    '    <button class="btn btn-ghost btn-sm" id="rerec">重录本题</button>',
+    '    <button class="btn btn-ghost btn-sm" id="dl">下载这段</button>',
+    '  </div>',
+    '</div>'
+  ].join('');
+}
+
+/* ============================ 录音流程 ============================ */
+function precheck(){
+  if(!window.MediaRecorder || !navigator.mediaDevices){
+    return '浏览器不支持录音，请换用 Chrome、Edge 或 Safari 打开';
+  }
+  if(location.protocol === 'file:'){
+    return null; // 大多数桌面浏览器允许 file:// 使用麦克风
+  }
+  return null;
+}
+
+async function beginFlow(t){
+  const stage = $('#stage');
+  if(!stage) return;
+  const msg = precheck();
+  if(msg){ toast(msg, 4000); return; }
+
+  try{
+    await ensureStream();
+  }catch(err){
+    stage.innerHTML = [
+      '<p class="stagetitle" style="color:#e11d48">无法使用麦克风</p>',
+      '<p class="stagesub">请点击地址栏左侧的锁形图标，把麦克风改为"允许"，然后刷新页面。<br>若在微信内打开，请点右上角"在浏览器中打开"。</p>',
+      '<button class="btn btn-ghost btn-sm" id="reload">重新加载</button>'
+    ].join('');
+    const r = $('#reload');
+    if(r) r.addEventListener('click', ()=>location.reload());
+    return;
+  }
+
+  if(t.prep > 0){
+    const ok = await runPrep(t.prep, stage);
+    if(!ok) return;
+  }
+  const go = await countIn(stage);
+  if(!go) return;
+  startRecording(t, stage);
+}
+
+function runPrep(sec, stage){
+  return new Promise(resolve=>{
+    const end = Date.now() + sec*1000;
+    stage.dataset.state = 'prep';
+    stage.innerHTML = [
+      '<p class="stagetitle">准备时间</p>',
+      '<p class="stagesub">想好要点，倒计时结束自动开始录音</p>',
+      '<div class="ringwrap">',
+      '  <svg class="ring" viewBox="0 0 132 132"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54" id="rfg"/></svg>',
+      '  <div class="ringtxt"><b id="clock">' + fmt(sec) + '</b><small>准备中</small></div>',
+      '</div>',
+      '<button class="btn btn-ghost btn-sm" id="skip">跳过准备，直接开始</button>'
+    ].join('');
+
+    const clock = $('#clock'), fg = $('#rfg');
+    let done = false;
+    const tick = ()=>{
+      const leftMs = Math.max(0, end - Date.now());
+      if(clock) clock.textContent = fmt(Math.ceil(leftMs/1000));
+      if(fg) fg.style.strokeDashoffset = String(RING_C * (leftMs/(sec*1000)));
+      if(leftMs <= 0 && !done){
+        done = true; clearInterval(id); skipPrep = null; beep(660,.1); resolve(true);
+      }
+    };
+    const id = setInterval(tick, 100);
+    tick();
+    skipPrep = ()=>{ if(done) return; done = true; clearInterval(id); skipPrep = null; resolve(true); };
+    const btn = $('#skip');
+    if(btn) btn.addEventListener('click', ()=>{ if(skipPrep) skipPrep(); });
+  });
+}
+
+function countIn(stage){
+  return new Promise(resolve=>{
+    let n = 3;
+    stage.dataset.state = 'prep';
+    stage.innerHTML = [
+      '<p class="stagetitle">马上开始</p>',
+      '<p class="stagesub">看到红色计时后请开始说话</p>',
+      '<div class="ringwrap">',
+      '  <svg class="ring" viewBox="0 0 132 132"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54" style="stroke-dashoffset:0"/></svg>',
+      '  <div class="ringtxt"><b id="cnum">3</b><small>秒</small></div>',
+      '</div>'
+    ].join('');
+    beep(760,.1);
+    countdownId = setInterval(()=>{
+      n--;
+      const el = $('#cnum');
+      if(n > 0){ if(el) el.textContent = n; beep(760,.1); }
+      else { clearInterval(countdownId); resolve(true); }
+    }, 1000);
+  });
+}
+
+function startRecording(t, stage){
+  chunks = []; maxLevel = 0;
+  const mime = pickMime();
+  try{
+    mr = new MediaRecorder(stream, mime ? {mimeType:mime} : undefined);
+  }catch(e){ toast('录音初始化失败，请刷新页面重试', 3500); return; }
+
+  mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
+  mr.onstop = ()=>finalize(t);
+
+  try{ mr.start(200); }catch(e){ toast('录音启动失败，请重试', 3500); return; }
+
+  stage.dataset.state = 'recording';
+  stage.innerHTML = [
+    '<p class="stagetitle" style="color:#e11d48">● 正在录音</p>',
+    '<p class="stagesub">请自然表达，说完可点击结束</p>',
+    '<div class="ringwrap">',
+    '  <svg class="ring" viewBox="0 0 132 132"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54" id="rfg"/></svg>',
+    '  <div class="ringtxt"><b id="clock">00:00</b><small>已录</small></div>',
+    '</div>',
+    '<div class="lvl" id="lvl">' + '<i></i>'.repeat(30) + '</div>',
+    '<div class="row" style="justify-content:center;margin-top:16px">',
+    '  <button class="btn btn-rec btn-sm" id="stop">■ 结束录音</button>',
+    '</div>'
+  ].join('');
+
+  $('#stop').addEventListener('click', stopRecording);
+  recStart = performance.now();
+  startMeter($('#lvl'));
+
+  clearInterval(tickId);
+  tickId = setInterval(()=>{
+    const el = (performance.now() - recStart)/1000;
+    const clock = $('#clock'), fg = $('#rfg');
+    if(clock) clock.textContent = fmt(el);
+    if(fg) fg.style.strokeDashoffset = String(RING_C * (1 - Math.min(1, el/t.limit)));
+    if(el >= t.limit) stopRecording();
+  }, 100);
+}
+
+function startMeter(container){
+  if(!container) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if(!Ctx) return;
+  try{
+    const ac = new Ctx();
+    const src = ac.createMediaStreamSource(stream);
+    const an = ac.createAnalyser(); an.fftSize = 128;
+    src.connect(an);
+    const buf = new Uint8Array(an.frequencyBinCount);
+    const bars = [].slice.call(container.children);
+    const loop = ()=>{
+      an.getByteFrequencyData(buf);
+      let sum = 0;
+      bars.forEach((b,i)=>{
+        const v = buf[i*2+1] / 255;
+        sum += v;
+        b.style.transform = 'scaleY(' + Math.max(0.05, Math.min(1, v*1.6)).toFixed(3) + ')';
+      });
+      maxLevel = Math.max(maxLevel, sum/bars.length);
+      rafId = requestAnimationFrame(loop);
+    };
+    loop();
+    container._ac = ac;
+  }catch(e){}
+}
+
+function stopRecording(){
+  clearInterval(tickId);
+  cancelAnimationFrame(rafId);
+  if(mr && mr.state === 'recording'){
+    try{ mr.stop(); }catch(e){}
+  }
+}
+
+function finalize(t){
+  const secs = Math.max(1, Math.round((performance.now() - recStart)/1000));
+  const type = (mr && mr.mimeType) || pickMime() || 'audio/webm';
+  const blob = new Blob(chunks, {type:type});
+  if(!blob.size){ toast('没有录到声音，请重试', 3500); renderTask(); return; }
+  if(state.clips[t.id] && state.clips[t.id].url){
+    try{ URL.revokeObjectURL(state.clips[t.id].url); }catch(e){}
+  }
+  state.clips[t.id] = { blob:blob, url:URL.createObjectURL(blob), seconds:secs, mime:type };
+  if(maxLevel < 0.035) toast('这段录音音量偏低，建议靠近麦克风重录', 3600);
+  renderTask();
+}
+
+/* ============================ 完成页 ============================ */
+function safeName(){ return (state.name || '候选人').replace(/[\\/:*?"<>|\s]/g,''); }
+function fileName(t, clip){
+  const i = TASKS.map(x=>x.id).indexOf(t.id) + 1;
+  return pad(i) + '_' + safeName() + '_' + t.tag + '.' + extFor(clip.mime);
+}
+function downloadClip(clip, name){
+  const a = document.createElement('a');
+  a.href = clip.url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function downloadBlob(blob, name){
+  const a = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 8000);
+}
+
+/* 6 段录音打成一个 ZIP（缓存，避免重复打包） */
+let zipCache = null;
+async function getZip(){
+  if(zipCache) return zipCache;
+  const entries = TASKS
+    .filter(t=>state.clips[t.id])
+    .map(t=>({ name: fileName(t, state.clips[t.id]), blob: state.clips[t.id].blob }));
+  zipCache = await makeZip(entries);
+  return zipCache;
+}
+function zipName(){ return safeName() + '_口语录音.zip'; }
+
+function renderDone(){
+  state.step = TASKS.length;
+  renderSteps();
+  const items = TASKS.filter(t=>state.clips[t.id]);
+  const total = items.reduce((s,t)=>s + state.clips[t.id].seconds, 0);
+  const dateStr = state.startedAt ? state.startedAt.toLocaleString('zh-CN') : new Date().toLocaleString('zh-CN');
+
+  screenEl.innerHTML = [
+    '<section class="card">',
+    '  <h1>测试完成</h1>',
+    '  <p class="sub">你已完成 ' + items.length + ' 段录音，总时长 ' + fmt(total) + '。' + (SUBMIT.email ? '点下方"发送到招聘邮箱"，录音会随附件发给招聘负责人，发完即可关闭页面。' : '请把所有音频下载后，连同姓名一起发给招聘负责人。') + '</p>',
+    '  <div style="margin-top:18px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:#fbfcff">',
+    '    <div class="kv"><span>候选人</span><b>' + esc(state.name) + (state.email ? ' · ' + esc(state.email) : '') + '</b></div>',
+    '    <div class="kv"><span>完成时间</span><b>' + esc(dateStr) + '</b></div>',
+    '    <div class="kv"><span>录音段数</span><b>' + items.length + ' / ' + TASKS.length + '</b></div>',
+    '  </div>',
+    '  <div class="files">',
+    items.map(t=>{
+      const c = state.clips[t.id];
+      return '<div class="file">'
+        + '<div class="name">' + esc(t.tag) + '<div class="dur">' + fmt(c.seconds) + ' · ' + extFor(c.mime).toUpperCase() + '</div></div>'
+        + '<audio controls src="' + c.url + '"></audio>'
+        + '<button class="btn btn-ghost btn-sm" data-dl="' + t.id + '">下载</button>'
+        + '</div>';
+    }).join(''),
+    '  </div>',
+    '  <div class="row" style="margin-top:20px">',
+    (SUBMIT.email ? '    <button class="btn btn-primary" id="mail">发送到招聘邮箱</button>' : ''),
+    (SUBMIT.endpoint ? '    <button class="btn btn-primary" id="upload">直接提交给招聘方</button>' : ''),
+    '    <button class="btn ' + ((SUBMIT.email || SUBMIT.endpoint) ? 'btn-ghost' : 'btn-primary') + '" id="zip">打包下载全部录音（ZIP）</button>',
+    '    <button class="btn btn-ghost" id="all">逐个下载</button>',
+    '    <button class="btn btn-ghost" id="info">下载测试信息.txt</button>',
+    '    <div class="spacer"></div>',
+    '    <button class="btn btn-ghost btn-sm" id="restart">重新测试</button>',
+    '  </div>',
+    '  <p class="hint">' + (SUBMIT.email
+      ? '点"发送到招聘邮箱"会自动下载附件并打开邮件，把 ZIP 拖进附件发送即可。'
+      : '建议点"打包下载全部录音"，得到一个 ZIP 文件直接发送即可。') + '若浏览器拦截下载，请点击"允许"。</p>',
+    (SUBMIT.email ? [
+      '<div class="fallback" id="fb" hidden>',
+      '  <p class="fb-t">邮件没有自动打开？用下面任一方式提交</p>',
+      '  <div class="fb-row"><span>收件人</span><b>' + esc(SUBMIT.email) + '</b></div>',
+      '  <div class="fb-row"><span>主题</span><b>' + esc(mailSubject()) + '</b></div>',
+      '  <div class="fb-row"><span>附件</span><b>' + esc(zipName()) + '</b><span>（已下载到你的"下载"文件夹）</span></div>',
+      '  <div class="fb-acts">',
+      '    <button class="btn btn-ghost btn-sm" id="fb-copy">复制邮件内容</button>',
+      '    <button class="btn btn-ghost btn-sm" id="fb-retry">再试一次打开邮件</button>',
+      '  </div>',
+      '</div>',
+      '<p class="hint" style="margin-top:10px"><a href="#" id="fb-toggle" style="color:#4f46e5">邮件没打开？点这里看手动提交方式</a></p>'
+    ].join('') : ''),
+    '</section>'
+  ].join('');
+
+  [].slice.call(screenEl.querySelectorAll('[data-dl]')).forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const t = TASKS.filter(x=>x.id === b.getAttribute('data-dl'))[0];
+      downloadClip(state.clips[t.id], fileName(t, state.clips[t.id]));
+    });
+  });
+
+  $('#zip').addEventListener('click', async ()=>{
+    const btn = $('#zip');
+    btn.disabled = true; btn.textContent = '正在打包…';
+    try{
+      const zip = await getZip();
+      downloadBlob(zip, zipName());
+      toast('已打包 ' + items.length + ' 段录音，发送这一个 ZIP 即可', 3600);
+    }catch(err){
+      toast('打包失败，请改用"逐个下载"', 3600);
+    }finally{
+      btn.disabled = false; btn.textContent = '打包下载全部录音（ZIP）';
+    }
+  });
+
+  /* ---------- 邮件：主题 / 正文 / 唤起客户端 ---------- */
+  function mailSubject(){
+    return '[口语测试] ' + state.name + ' · HR（AI 工程师招聘）';
+  }
+  function mailBody(){
+    return [
+      '姓名：' + state.name,
+      '邮箱/手机：' + (state.email || '（未填写）'),
+      '完成时间：' + dateStr,
+      '录音：' + items.length + ' 段，总时长 ' + fmt(total),
+      '',
+      '附件为口语测试录音压缩包：' + zipName(),
+      '（若附件未附上，附件已下载在候选人设备的"下载"文件夹中。）'
+    ].join('\n');
+  }
+  function openMail(){
+    const href = 'mailto:' + SUBMIT.email
+      + '?subject=' + encodeURIComponent(mailSubject())
+      + '&body=' + encodeURIComponent(mailBody());
+    window.location.href = href;
+  }
+  function showFallback(){
+    const fb = $('#fb');
+    if(fb) fb.hidden = false;
+  }
+
+  if($('#mail')){
+    $('#mail').addEventListener('click', async ()=>{
+      const btn = $('#mail');
+      btn.disabled = true; btn.textContent = '正在准备附件…';
+      try{
+        const zip = await getZip();
+        downloadBlob(zip, zipName());
+        btn.textContent = '正在打开邮件…';
+        setTimeout(openMail, 600);
+        setTimeout(()=>{
+          if(document.hasFocus()) showFallback();
+        }, 4200);
+        toast('附件已下载。若邮件未自动打开，请看下方的"手动提交方式"', 6000);
+      }catch(err){
+        showFallback();
+        toast('附件生成失败，请点"打包下载"后手动发邮件', 4500);
+      }finally{
+        btn.disabled = false; btn.textContent = '发送到招聘邮箱';
+      }
+    });
+  }
+
+  if($('#fb-toggle')){
+    $('#fb-toggle').addEventListener('click', e=>{
+      e.preventDefault();
+      showFallback();
+    });
+    $('#fb-retry').addEventListener('click', openMail);
+    $('#fb-copy').addEventListener('click', async ()=>{
+      const text = '收件人：' + SUBMIT.email + '\n主题：' + mailSubject() + '\n\n' + mailBody();
+      try{
+        await navigator.clipboard.writeText(text);
+        toast('已复制收件人、主题和正文，粘到邮件里即可', 4200);
+      }catch(err){
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); toast('已复制邮件内容', 3600); }
+        catch(e2){ toast('复制失败，请手动选择文本复制', 3600); }
+        ta.remove();
+      }
+    });
+  }
+
+  /* 配置了接收端时：直接上传，无需候选人发邮件 */
+  if($('#upload')){
+    $('#upload').addEventListener('click', async ()=>{
+      const btn = $('#upload');
+      btn.disabled = true; btn.textContent = '正在上传…';
+      try{
+        const zip = await getZip();
+        const fd = new FormData();
+        fd.append('file', zip, zipName());
+        fd.append('name', state.name);
+        fd.append('contact', state.email || '');
+        fd.append('finishedAt', dateStr);
+        fd.append('totalSeconds', String(total));
+        fd.append('parts', JSON.stringify(items.map(t=>({ tag:t.tag, seconds:state.clips[t.id].seconds }))));
+        const res = await fetch(SUBMIT.endpoint, { method:'POST', body:fd });
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        btn.textContent = '已提交 ✓';
+        toast('录音已提交给招聘方，可以关闭页面了', 6000);
+      }catch(err){
+        btn.disabled = false; btn.textContent = '直接提交给招聘方';
+        toast('上传失败，请改用"发送到招聘邮箱"或"打包下载"', 5000);
+      }
+    });
+  }
+
+  $('#all').addEventListener('click', async ()=>{
+    for(const t of items){
+      downloadClip(state.clips[t.id], fileName(t, state.clips[t.id]));
+      await new Promise(r=>setTimeout(r, 450));
+    }
+    toast('已开始下载，请检查浏览器"下载"文件夹', 3200);
+  });
+
+  $('#info').addEventListener('click', ()=>{
+    const lines = [
+      '英语口语测试 · 候选人信息',
+      '------------------------------',
+      '姓名：' + state.name,
+      '邮箱/手机：' + (state.email || '（未填写）'),
+      '完成时间：' + dateStr,
+      '录音总时长：' + fmt(total),
+      '',
+      '录音清单：'
+    ].concat(items.map((t,i)=> pad(i+1) + '. ' + t.tag + '（' + t.part + '） ' + fmt(state.clips[t.id].seconds)));
+    const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = safeName() + '_测试信息.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  });
+
+  $('#restart').addEventListener('click', ()=>{
+    if(!confirm('重新测试会清空当前录音，确定吗？')) return;
+    Object.keys(state.clips).forEach(k=>{ try{ URL.revokeObjectURL(state.clips[k].url); }catch(e){} });
+    state.clips = {}; state.startedAt = null; zipCache = null;
+    renderIntro();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+}
+
+/* ============================ ZIP 打包（store 模式） ============================ */
+const CRC_TABLE = (function(){
+  const t = new Uint32Array(256);
+  for(let n=0;n<256;n++){
+    let c = n;
+    for(let k=0;k<8;k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function crc32(u8){
+  let c = 0xFFFFFFFF;
+  for(let i=0;i<u8.length;i++) c = CRC_TABLE[(c ^ u8[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+function dosTime(d){
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  return { time, date };
+}
+async function makeZip(entries){
+  const enc = new TextEncoder();
+  const now = dosTime(new Date());
+  const parts = [], central = [];
+  let offset = 0;
+
+  for(const e of entries){
+    const nameBytes = enc.encode(e.name);
+    const data = new Uint8Array(await e.blob.arrayBuffer());
+    const crc = crc32(data);
+    const local = new Uint8Array(30 + nameBytes.length);
+    const lv = new DataView(local.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, 0x0800, true);
+    lv.setUint16(8, 0, true);
+    lv.setUint16(10, now.time, true);
+    lv.setUint16(12, now.date, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, data.length, true);
+    lv.setUint32(22, data.length, true);
+    lv.setUint16(26, nameBytes.length, true);
+    lv.setUint16(28, 0, true);
+    local.set(nameBytes, 30);
+    parts.push(local, data);
+
+    const cd = new Uint8Array(46 + nameBytes.length);
+    const cv = new DataView(cd.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint16(8, 0x0800, true);
+    cv.setUint16(10, 0, true);
+    cv.setUint16(12, now.time, true);
+    cv.setUint16(14, now.date, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, data.length, true);
+    cv.setUint32(24, data.length, true);
+    cv.setUint16(28, nameBytes.length, true);
+    cv.setUint32(42, offset, true);
+    cd.set(nameBytes, 46);
+    central.push(cd);
+
+    offset += local.length + data.length;
+  }
+
+  const cdSize = central.reduce((n,c)=>n + c.length, 0);
+  const end = new Uint8Array(22);
+  const ev = new DataView(end.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, entries.length, true);
+  ev.setUint16(10, entries.length, true);
+  ev.setUint32(12, cdSize, true);
+  ev.setUint32(16, offset, true);
+
+  return new Blob(parts.concat(central, [end]), {type:'application/zip'});
+}
+
+/* ============================ 离开保护 ============================ */
+window.addEventListener('beforeunload', e=>{
+  const hasClips = Object.keys(state.clips).length > 0;
+  if(hasClips || mr){
+    e.preventDefault();
+    e.returnValue = '';
+    return '';
+  }
+});
+
+/* ============================ 启动 ============================ */
+renderIntro();
+</script>
+</body>
+</html>
